@@ -4,6 +4,7 @@ require 'pathname'
 require 'aws-sdk-v1'
 
 s3 = AWS::S3.new(
+  :region => ENV['AWS_REGION'] || "me-south-1",
   :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
   :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
 )
