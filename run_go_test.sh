@@ -3,6 +3,9 @@
 export GOPATH=${PWD}/go
 echo "GOPATH: $GOPATH"
 
+export GOROOT /usr/local/go
+export PATH $PATH:$GOROOT/bin
+
 if [ ! -f deliver ]; then
     mkdir -p $GOPATH/src/github.com/edmodo
     git clone git@github.com:edmodo/deliver $GOPATH/src/github.com/edmodo/deliver
