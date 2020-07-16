@@ -1,0 +1,17 @@
+{
+	"Repository": "github.com/edmodo/test-aws-call",
+	"Packages": {
+		"github.com/aws/aws-sdk-go": {
+			"Source": "git@github.com:aws/aws-sdk-go.git",
+			"Revision": "baba9e786eae5ba978f2007f8e718557b29157c8",
+            "#Apr 13, 2017": "baba9e786eae5ba978f2007f8e718557b29157c8",
+            "#Latest-v1.33.6": "b13361ce154ff05471ad4ef50c795c84d5caf447"
+		},
+        "github.com/goamz/goamz": {
+			"Source": "https://github.com/adamstep/goamz",
+			"Revision": "5fe5cd8120263d6b8f0b094b456d479551e5f2c4",
+            "#Sep 2 15:59:50 2015": "5fe5cd8120263d6b8f0b094b456d479551e5f2c4",
+            "#Latest": "8b901b531db8fca1529b05bfa948605b01ca3ab0"
+		}
+	}
+}

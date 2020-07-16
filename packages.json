@@ -1,0 +1,11 @@
+{
+    "repository": "github.com/edmodo/test-aws-call",
+    "packages": {
+        "github.com/aws/aws-sdk-go": {
+            "source": "git@github.com:aws/aws-sdk-go.git"
+        },
+        "github.com/goamz/goamz": {
+            "source": "https://github.com/adamstep/goamz"
+        }
+    }
+}
