@@ -1,0 +1,17 @@
+FROM registry.edmodo.io/python27
+
+##### Hack Begin
+# Hacking the Boto here
+
+# Option1 download in Docker
+# ARG GITHUB_ACCESS_TOKEN
+# RUN curl -H "Authorization: token ${GITHUB_ACCESS_TOKEN}" \
+#          -H 'Accept: application/vnd.github.v3.raw' \
+#          -o /tmp/endpoints.json \
+#          -L https://raw.githubusercontent.com/edmodo/aws-endpoints/master/python-boto/endpoints.json && \
+#     cp /tmp/endpoints.json /usr/local/lib/python2.7/dist-packages/boto/endpoints.json && \
+#     rm /tmp/endpoints.json
+
+# Option2 download in Makefile, COPY into Docker
+COPY endpoints.json.patch /usr/local/lib/python2.7/dist-packages/boto/endpoints.json
+##### Hack End

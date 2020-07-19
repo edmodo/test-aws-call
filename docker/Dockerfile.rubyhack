@@ -1,0 +1,40 @@
+# Copied from one-eye app-combined to hack endpoint.json file in aws-sdk-v1
+FROM registry.edmodo.io/ruby23:latest
+
+#RUN apt-get update && apt-get install libjemalloc1 ttf-wqy-microhei && rm -rf /var/lib/apt/lists/*
+#ENV LD_PRELOAD=/usr/lib/libjemalloc.so.1
+
+ARG BUILD_CONFIG=unknown
+ENV BUILD_CONFIG=${BUILD_CONFIG}
+
+# ADD config/image-magick.xml /etc/ImageMagick/policy.xml
+
+# ADD docker/update_build_config.sh /var/www/config/
+# RUN /var/www/config/update_build_config.sh
+
+# ADD prod-one-eye.vault.tar.gz /var/www/config/
+# RUN rm -f /var/www/config/thrift_services.user.yml
+
+##### Hack Begin
+# Hacking the aws-sdk-v1 here
+# `gem which aws-sdk-v1` output: /usr/local/bundle/gems/aws-sdk-v1-1.66.0/lib/aws-sdk-v1.rb
+# 2 dirname to find the root of sdk
+ARG GITHUB_ACCESS_TOKEN
+RUN curl -H "Authorization: token ${GITHUB_ACCESS_TOKEN}" \
+         -H 'Accept: application/vnd.github.v3.raw' \
+         -o /tmp/endpoints.json \
+         -L https://raw.githubusercontent.com/edmodo/aws-endpoints/master/ruby-aws-sdk-v1/endpoints.json && \
+    cp /tmp/endpoints.json $(dirname $(dirname $(gem which aws-sdk-v1)))/endpoints.json && \
+    rm /tmp/endpoints.json
+##### Hack End
+
+ENV RAILS_ENV production
+ENV RACK_ENV production
+
+#RUN mkdir -p /var/log/one-eye
+#RUN bundle exec rake assets:precompile
+
+EXPOSE 3000
+
+# CMD [ "/var/www/docker/app-combined/combined_run.sh" ]
+CMD ["bash"]

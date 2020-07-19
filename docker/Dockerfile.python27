@@ -1,0 +1,12 @@
+FROM registry.edmodo.io/base
+
+RUN apt-get update && apt-get install -y python-pip python-dev
+# !!! The pip is 1.0, it's toooooooooo old, when update has following issue, need add index url
+# Cannot fetch index base URL http://pypi.python.org/simple/
+RUN pip install --index-url=https://pypi.python.org/simple/ -U pip
+
+WORKDIR /var/www
+ONBUILD ADD . /var/www
+
+# Optionally install the requirements.txt.  Ignore it otherwise
+ONBUILD RUN pip install -r requirements.txt || [ ! -f requirements.txt ]

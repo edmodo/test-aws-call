@@ -1,0 +1,14 @@
+FROM ubuntu:12.04
+
+# Install universally useful packages
+RUN DEBIAN_FRONTEND=noninteractive apt-get update --fix-missing && apt-get install -y python-software-properties && add-apt-repository ppa:git-core/ppa && apt-get update && apt-get install -y git
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y build-essential openssl curl sudo vim syslog-ng strace gdb
+
+# Grant permission to clone from edmodo's private github repos
+# ADD vault_configs.tar.gz /
+# RUN chmod 600 /root/.ssh/id_rsa
+# RUN /bin/bash -l -c "ssh -o \"StrictHostKeyChecking no\" git@github.com || true"
+
+RUN useradd -d /home/deployer -m -s /bin/bash deployer && \
+    echo "kernel.yama.ptrace_scope = 0" >> /etc/sysctl.d/99-overrides.conf
+
